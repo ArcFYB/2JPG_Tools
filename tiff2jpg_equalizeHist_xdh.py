@@ -1,6 +1,7 @@
 '''
 
 将卫星图像（tiff）格式裁剪为固定大小的图像块（如256x256，128x128等），用于后续的深度学习训练
+保存原始jpg和直方图均衡化后的数据
 
 '''
 import sys
@@ -72,10 +73,10 @@ def generateGaojingSamples(file):
     for i in range(nc):
         single = arr[:,:,i]
         arr[:,:,i] = cv2.equalizeHist(single)
-    cv2.imwrite('/home/xdh/equalize.jpg', arr[:,:,0:3])
+    cv2.imwrite('/home/fiko/Code/Super_Resolution/Image-Super-Resolution-via-Iterative-Refinement/dataset/tif_dataset/equalize.jpg', arr[:,:,0:3])
 
-    out_path = '/home/xdh/data/super-resolution/GJ/train'
-    image_size = 256
+    out_path = '/home/fiko/Code/Super_Resolution/Image-Super-Resolution-via-Iterative-Refinement/dataset/tif_dataset/airport_ouput'
+    image_size = 128
     for i in range(10000):
         l = int( random.random()*(wd-image_size-1) )
         t = int( random.random()*(ht-image_size-1) )
@@ -90,9 +91,4 @@ if __name__=='__main__':
     file = sys.argv[1]
     generateGaojingSamples(file)
     
-
-
-
-
-
 

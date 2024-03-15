@@ -1,3 +1,8 @@
+'''
+
+批量将文件夹中的.tif和.tiff转换为.jpg
+
+'''
 import os
 import cv2
 import numpy as np
