@@ -64,9 +64,10 @@ def crop_tiff_to_jpg(input_tiff_file, output_directory, block_size=512):
     # 创建RGB图像
     rgb_image = np.stack([blue_band_uint8, green_band_uint8, red_band_uint8], axis=-1)
     
-    # 应用直方图均衡化       
+    
+    # 应用自动色阶变换     
     rgb_image = stretch_dynamic_range(rgb_image)
-
+    cv2.imwrite('/home/fiko/Code/Super_Resolution/Image-Super-Resolution-via-Iterative-Refinement/dataset/tif_dataset/airport_MUX/Autolevel.jpg', rgb_image)
 
     # 遍历TIFF图像并切割成128x128的块
     for y in range(0, height, block_size):
