@@ -3,6 +3,33 @@ import os
 import cv2
 import numpy as np
 
+def white_balance(image):
+    # 将图像转换为Lab颜色空间
+    lab = cv2.cvtColor(image, cv2.COLOR_BGR2Lab)
+    
+    # 分离通道
+    L, a, b = cv2.split(lab)
+    
+    # 计算a和b通道的均值
+    avg_a = np.mean(a)
+    avg_b = np.mean(b)
+    
+    # 计算增益系数
+    avg_a = 128 - avg_a
+    avg_b = 128 - avg_b
+    
+    # 对a和b通道应用增益系数
+    balanced_a = np.uint8(np.clip(a + avg_a, 0, 255))
+    balanced_b = np.uint8(np.clip(b + avg_b, 0, 255))
+    
+    # 合并通道
+    balanced_lab = cv2.merge([L, balanced_a, balanced_b])
+    
+    # 将图像转换回BGR颜色空间
+    balanced_image = cv2.cvtColor(balanced_lab, cv2.COLOR_Lab2BGR)
+    
+    return balanced_image
+
 def crop_tiff_to_jpg(input_tiff_file, output_directory, block_size=128):
     # 打开TIFF文件
     ds = gdal.Open(input_tiff_file)
@@ -28,9 +55,15 @@ def crop_tiff_to_jpg(input_tiff_file, output_directory, block_size=128):
     # 创建RGB图像
     rgb_image = np.stack([blue_band_uint8, green_band_uint8, red_band_uint8], axis=-1)
     
+    # 白平衡
+    rgb_image = white_balance(rgb_image)
+    cv2.imwrite(os.path.dirname(input_tiff_file) + '/white_balance.jpg',rgb_image)
+    
     # 应用直方图均衡化       
     for i in range(3):  # 对每个通道进行直方图均衡化
         rgb_image[:, :, i] = cv2.equalizeHist(rgb_image[:, :, i])
+        
+    cv2.imwrite(os.path.dirname(input_tiff_file) + '/equalizeHist.jpg',rgb_image)
 
 
     # 遍历TIFF图像并切割成128x128的块
