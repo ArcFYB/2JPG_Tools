@@ -84,8 +84,8 @@ def crop_tiff_to_jpg(input_tiff_file, output_directory, block_size=128):
     print("Convert image completed!!!")
 
 if __name__ == "__main__":
-    input_tiff_file = "/home/fiko/Code/Super_Resolution/Image-Super-Resolution-via-Iterative-Refinement/dataset/tif_dataset/airport_MUX/airport.tif"  # 输入TIFF文件的路径
-    output_directory = "/home/fiko/Code/Super_Resolution/Image-Super-Resolution-via-Iterative-Refinement/dataset/tif_dataset/airport_output_jpg"  # 保存图像块的目录
+    input_tiff_file = "/media/fiko/AE93-771F/丽水市/2m/LS_202210.tif"  # 输入TIFF文件的路径
+    output_directory = "/home/fiko/Code"  # 保存图像块的目录
 
     # 创建输出目录
     os.makedirs(output_directory, exist_ok=True)
