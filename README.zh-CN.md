@@ -1,3 +1,9 @@
+<div align="right">
+
+**中文** | [English](./README.md)
+
+</div>
+
 # 🛰️ tif2jpg_pipeline：GeoTIFF 裁剪 + 转 JPG + 多种增强（可选）✨
 
 > 目标：把 **1 波段 / 3 波段** 的 GeoTIFF（`.tif/.tiff`）批处理为 **可直接训练/可视化** 的 JPG，并支持 **裁剪 patch** 与 **多种增强策略**（AutoLevel / Equalize / MSR / PIL）。
