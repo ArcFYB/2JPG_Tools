@@ -1,6 +1,6 @@
 <div align="right">
 
-**中文** | [English](./README.md)
+  <a href="./README.md">English</a> | 简体中文
 
 </div>
 
